@@ -10,7 +10,7 @@ import { get } from "http";
 
 const products = async (req, res) => {
     const products = await Product.find().where('seller').equals(req.admin._id.toString())
-    res.json({products})
+    res.status(200).json({products})
 } 
 
 const filteredProducts = async (req, res) => {
@@ -21,7 +21,7 @@ const filteredProducts = async (req, res) => {
             {category: new RegExp(filter, 'i')}
         ]
     }).sort({createdAt: -1})
-    res.json({products})
+    res.status(200).json({products})
 }
 
 const getImage = async (req, res) => {
@@ -67,7 +67,7 @@ const getOneProduct = async (req, res) => {
         return res.json({msg: 'Este producto no pertenece a tu stock'})
     }
 
-    res.json(product)
+    res.status(200).json(product)
  
 }
 
@@ -85,7 +85,7 @@ const addProduct = async (req, res) => {
     
     try {
         const productSaved = await product.save()
-        return res.json(productSaved)
+        return res.status(200).json(productSaved)
     } catch (error) {
         console.log(error)
     }
@@ -106,7 +106,7 @@ const deleteProduct = async (req, res) => {
 
     try {
         await product.deleteOne()
-        return res.json({msg: "Producto eliminado"})
+        return res.status(200).json({msg: "Producto eliminado"})
     } catch (error) {
         console.log(error)
     }
@@ -147,7 +147,7 @@ const editProduct = async (req, res) => {
     
     try {
         const editedProduct = await product.save()
-        return res.json(editedProduct)
+        return res.status(200).json(editedProduct)
     } catch (error) {
         console.log(error)
     }
@@ -157,7 +157,7 @@ const saveVariant = async (req, res) => {
     const variant = new Variant(req.body)
     try {
         const variantSaved = await variant.save()
-        res.json(variantSaved)
+        res.status(200).json(variantSaved)
    
     } catch (error) {
         console.log(error)
@@ -173,7 +173,7 @@ const getProductVariants = async (req, res) => {
     const {id} = req.params
     try {
         const variants = await Variant.find({product: id}).sort({stock: -1})
-        return res.json(variants)
+        return res.status(200).json(variants)
     } catch (error) {
         console.log(error)
     }
@@ -188,7 +188,7 @@ const deleteVariantByStock = async (req, res) => {
         await Product.findByIdAndUpdate({_id: variant.product},{
         stock: product.stock - variant.stock
         })
-        return res.json(variant)
+        return res.status(200).json(variant)
     } catch (error) {
         console.log(error)
     }
@@ -205,7 +205,7 @@ const addImageInGallery = async (req, res) => {
     
     try {
         const imageSaved = await image.save()
-        return res.json(imageSaved)
+        return res.status(200).json(imageSaved)
     } catch (error) {
         console.log(error)
     }
@@ -215,7 +215,7 @@ const getAllGallery = async (req, res) => {
     const {id} = req.params
 
     const gallery = await ProductGallery.find({product: id})
-    return res.json(gallery)
+    return res.status(200).json(gallery)
 }
 
 const deleteImgFromGallery = async (req, res) => {
@@ -227,7 +227,7 @@ const deleteImgFromGallery = async (req, res) => {
         fs.unlinkSync(imagePath)
 
         const imageToDelete = await ProductGallery.deleteOne({_id: id})
-        return res.json(imageToDelete)
+        return res.status(200).json(imageToDelete)
     } catch (error) {
         res.status(404).json({msg: 'No se pudo eliminar la imagen'})
     }
@@ -246,7 +246,7 @@ const createCategory = async (req, res) => {
     category.slug = slugify(category.name).toLowerCase()
     try {
         const savedCategory = await category.save()
-        return res.json({msg:'Categoria creada', savedCategory})
+        return res.status(200).json({msg:'Categoria creada', savedCategory})
     } catch (error) {
         res.status(404).json({msg: 'No se pudo crear la categoria'})
     }
@@ -270,7 +270,7 @@ const getAllCategories = async (req, res) => {
             })
         }
 
-        return res.json(categories)
+        return res.status(200).json(categories)
     } catch (error) {
         res.status(404).json({msg: 'No se encontró la categoria'})
     }
@@ -295,7 +295,7 @@ const createSubcategory = async (req, res) => {
 
     try {
         const savedSubcategory = await subcategory.save()
-        return res.json({savedSubcategory})
+        return res.status(200).json({savedSubcategory})
     } catch (error) {
         res.status(404).json({msg: 'No se pudo crear la categoria'})
     } 
@@ -305,7 +305,7 @@ const deleteSubcategory = async (req, res) => {
     const {id} = req.params
     try {
         const subcat = await Subcategory.findByIdAndRemove({_id: id})
-        return res.json({subcat})
+        return res.status(200).json({subcat})
     } catch (error) {
         res.status(404).json({msg: 'No se pudo eliminar la subcategoria'})
     }   
@@ -315,7 +315,7 @@ const deleteCategory = async (req, res) => {
     const {id} = req.params
     try {
         const cat = await Category.findByIdAndRemove({_id: id})
-        return res.json({cat})
+        return res.status(200).json({cat})
     } catch (error) {
         res.status(404).json({msg: 'No se pudo eliminar la categoria'})
     }   

@@ -26,7 +26,7 @@ const login = async (req, res) => {
         const error = new Error("Contraseña incorrecta")
         return res.status(404).json({msg: error.message})
     } else {
-        res.json({
+        res.status(200).json({
             token: JWTGen(admin.id),
             name: admin.name,
             _id: admin._id
