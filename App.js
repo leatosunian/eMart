@@ -10,6 +10,7 @@ import orderRoutes from "./routes/orderRoutes.js"
 import bodyparser from "body-parser"
 import { createServer } from "http"
 import { Server } from "socket.io"
+import cors from 'cors'
 
 const app = express()
 const httpServer = createServer(app);
@@ -31,13 +32,19 @@ app.use(bodyparser.json({limit: '50mb', extended: true}));
 
 connectDB()
 
-app.use((req,res,next)=>{
-    res.header('Access-Control-Allow-Origin','*'); 
-    res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods','GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Allow','GET, PUT, POST, DELETE, OPTIONS');
-    next();
-});
+/*app.use((req,res,next)=>{
+  res.header('Access-Control-Allow-Origin','*'); 
+  res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods','GET, PUT, POST, DELETE, OPTIONS');
+  res.header('Allow','GET, PUT, POST, DELETE, OPTIONS');
+  next();
+});*/
+// Habilitar CORS 
+const dominiosPermitidos = [process.env.FRONTEND_URL, process.env.FRONTEND_URL_DEV]
+
+app.use(cors({origin: dominiosPermitidos}))
+
+
 
 const PORT = process.env.PORT || 4000
 
