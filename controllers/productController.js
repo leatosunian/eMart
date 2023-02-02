@@ -72,8 +72,6 @@ const getOneProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-    // Todos los campos ingresados en el frontend se almacenan en req.body
-
     const imgPath = req.files.image.path.split('\\')
     const imgString = imgPath[2]
 
@@ -85,7 +83,7 @@ const addProduct = async (req, res) => {
     
     try {
         const productSaved = await product.save()
-        return res.status(200).json(productSaved)
+        return res.status(200).send(productSaved)
     } catch (error) {
         console.log(error)
     }
@@ -195,7 +193,6 @@ const deleteVariantByStock = async (req, res) => {
 }
 
 const addImageInGallery = async (req, res) => {
-    // Todos los campos ingresados en el frontend se almacenan en req.body
     const imgPath = req.files.image.path.split('\\')
     const imgString = imgPath[2]
 
