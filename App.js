@@ -40,7 +40,7 @@ connectDB()
   next();
 });*/
 // Habilitar CORS 
-const dominiosPermitidos = [process.env.FRONTEND_URL, process.env.FRONTEND_URL_DEV]
+const dominiosPermitidos = [process.env.FRONTEND_URL, process.env.FRONTEND_URL_DEV, process.env.FRONTEND_PAGE_URL]
 
 app.use(cors({origin: dominiosPermitidos}))
 
