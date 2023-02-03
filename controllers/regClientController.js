@@ -22,7 +22,6 @@ const createCart = async (req, res) => {
 const getCart = async (req, res) => {
     const {user} = req.params
     const cart = await Cart.find({client: user}).populate('product').populate('variant').sort({createdAt: -1})
-    
     return res.status(200).json(cart)
 }
 
@@ -136,9 +135,11 @@ const getOrderData = async (req, res) => {
 
 const getOrders = async (req, res) => {
     const {id} = req.params
-    const sales = await Sale.find({client:id}).sort({createdAt: -1}).populate('address')
-    /* const saleDetails = await SaleDetail.find({sale:id}).populate('product').populate('variant')*/
-    return res.status(200).json(sales)
+    if (id.match(/^[0-9a-fA-F]{24}$/)){
+        const sales = await Sale.find({client:id}).sort({createdAt: -1}).populate('address')
+        /* const saleDetails = await SaleDetail.find({sale:id}).populate('product').populate('variant')*/
+        return res.status(200).json(sales)
+    }
 }
 
 const getShippingMethods = async (req, res) => {
