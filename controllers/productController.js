@@ -170,7 +170,7 @@ const saveVariant = async (req, res) => {
 const getProductVariants = async (req, res) => {
     const {id} = req.params
     try {
-        const variants = await Variant.find({product: id}).sort({stock: -1})
+        const variants = await Variant.find({product: id})
         return res.status(200).json(variants)
     } catch (error) {
         console.log(error)

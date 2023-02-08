@@ -20,7 +20,7 @@ const clientSchema = mongoose.Schema({
     },
     enabled: {
         type: Boolean, 
-        default: false
+        default: true
     },
     phone: {
         type: Number,
