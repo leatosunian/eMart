@@ -195,7 +195,7 @@ const deleteVariantByStock = async (req, res) => {
 const addImageInGallery = async (req, res) => {
     const imgPath = req.files.image.path.split('\\')
     const imgString = imgPath[2]
-
+    console.log(req.files.image.path);
     const image = new ProductGallery(req.body)
 
     image.image = imgString
