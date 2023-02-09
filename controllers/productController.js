@@ -72,7 +72,7 @@ const getOneProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-    const imgPath = req.files.image.path.split('\\')
+    const imgPath = req.files.image.path.split('/')
     const imgString = imgPath[2]
 
     const product = new Product(req.body)
