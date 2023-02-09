@@ -199,7 +199,10 @@ const addImageInGallery = async (req, res) => {
     const image = new ProductGallery(req.body)
 
     image.image = imgString
-    
+    console.log(imgPath);
+    console.log(imgString);
+    console.log(image);
+
     try {
         const imageSaved = await image.save()
         return res.status(200).json(imageSaved)
