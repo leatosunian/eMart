@@ -156,15 +156,9 @@ const saveVariant = async (req, res) => {
     try {
         const variantSaved = await variant.save()
         res.status(200).json(variantSaved)
-   
     } catch (error) {
         console.log(error)
     }
-    const product = await Product.findById({_id: variant.product})
-    await Product.findByIdAndUpdate({_id: variant.product},{
-    stock: product.stock + variant.stock
-    })
-    
 } 
 
 const getProductVariants = async (req, res) => {
