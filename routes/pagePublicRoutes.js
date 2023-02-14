@@ -1,5 +1,5 @@
 import express from 'express'
-import { getLatestProducts, getMostWantedProducts, getAllProducts, getAllCategories, getOneProduct, getRelatedProducts, getCategories, filteredProducts } from '../controllers/pagePublicController.js'
+import { getLatestProducts, getMostWantedProducts, getAllProducts, getAllCategories, getOneProduct, getRelatedProducts, getCategories, filteredProducts, getShippingData } from '../controllers/pagePublicController.js'
 
 const router = express.Router()
 
@@ -12,6 +12,7 @@ router.get('/public/getrelatedproducts/:category', getRelatedProducts)
 router.get('/public/getcategories', getCategories)
 // SEARCH ROUTE //
 router.get('/products/:filter?', filteredProducts)
+router.get('/getshippingdata', getShippingData)
 
 export default router
 

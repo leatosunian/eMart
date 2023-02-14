@@ -1,6 +1,7 @@
 import Product from "../models/Product.js";
 import Variant from "../models/Variant.js";
 import ProductGallery from "../models/ProductGallery.js";
+import Shipping from "../models/Shipping.js"
 import Category from "../models/Category.js";
 import Subcategory from "../models/Subcategory.js";
 
@@ -100,6 +101,11 @@ const filteredProducts = async (req, res) => {
     res.json({products})
 }
 
+const getShippingData = async (req, res) => {
+    const shippingData = await Shipping.find()
+    return res.status(200).send(shippingData)
+}
+
 
 export {
     getLatestProducts,
@@ -109,5 +115,6 @@ export {
     getOneProduct,
     getRelatedProducts,
     getCategories,
-    filteredProducts
+    filteredProducts,
+    getShippingData
 }

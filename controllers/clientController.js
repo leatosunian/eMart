@@ -19,7 +19,7 @@ const register = async (req, res) => {
                 const client = new Client(req.body)
                 client.password = crypt
                 const clientSaved = await client.save()
-                res.json(clientSaved)
+                res.json({msg: 'Tu cuenta ha sido creada, iniciá sesión'})
             }
         })
         
@@ -34,7 +34,7 @@ const login = async (req, res) => {
     const client = await Client.findOne({email})
 
     if(!client){
-        const error = new Error("El usuario no existe")
+        const error = new Error("Usuario o contraseña incorrecto")
         return res.status(404).json({ msg: error.message})
     } 
     
